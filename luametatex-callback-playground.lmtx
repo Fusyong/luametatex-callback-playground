@@ -1,0 +1,69 @@
+% 中文配置
+\mainlanguage[cn]
+\language[cn]
+% \enableregime[utf]
+\setscript[hanzi] % 汉字断行
+
+% 汉字字体配置
+\usetypescriptfile[mscore]
+\usebodyfont   [mschinese,12pt]
+% \usebodyfont   [mschinese-light,12pt]
+% \setupbodyfont [mschinese-literate,12pt]
+% \usebodyfont   [mschinese-literate,12pt]
+% \definebodyfontenvironment[24pt]
+% \definebodyfontenvironment[18pt]
+
+% 定义字体
+% \definefont[kaiti][name:kaiti*default at 24pt]
+
+% 配置页码、结构序号等为汉字
+% \setuppagenumber [numberconversion=cn]
+% \definestructureconversionset[chinese][numbers][cn]
+% \setupheads [sectionconversionset=chinese]
+
+% 配置章节格式
+% \define[2]\ChineseChapter{第#1章 #2}
+% \setuphead[chapter][command=\ChineseChapter,style={\bf\switchtobodyfont[24pt]}]
+% \setuphead[section][style={\bf\switchtobodyfont[18pt]}]
+
+\setuppagenumbering[state=start,
+    alternative=singlesided,
+    location={footer, center},
+    style={\bf\switchtobodyfont[11pt]}
+]
+
+% 目录
+\setupcombinedlist[content][
+    list={chapter,section,subsection,subsubsection}, 
+    alternative=c,
+]
+
+\setupinteraction[state=start,focus=width]
+\placebookmarks[all]
+
+% 使用中文标点压缩模块
+% \usemodule[zhspuncs]
+
+% 行距
+\setupinterlinespace[line=1.5em]
+
+% 显式视觉调试信息
+% \showboxes
+% \showmakeup
+
+% 加载模块
+\directlua{require("luametatex-callback-playground.lua")}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\starttext
+
+\title{目录}
+% \completecontent % with title
+\placecontent % without title
+
+
+
+
+
+\stoptext
+

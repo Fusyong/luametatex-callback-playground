@@ -1,0 +1,82 @@
+% Dear list,
+
+% What is the non-hacking way to obtain the hbox's node in a Lua hook
+% when there is only one hbox for an entire paragraph?
+
+% Best regards,
+% Huang Fusyong (黄复雄)
+
+% start ConTeXt
+
+\startluacode
+Thirddata = Thirddata or {}
+Thirddata.jiazhu = Thirddata.jiazhu or {}
+
+---[[
+local function show_detail(n, label)
+    local l = label or "======="
+    print(">>>>>>>>>"..l.."<<<<<<<<<<")
+    print(nodes.toutf(n))
+    for i in node.traverse(n) do
+        local char
+        if i.id == nodes.nodecodes.glyph then
+            char = utf8.char(i.char)
+            print(i, char)
+        elseif i.id == nodes.nodecodes.penalty then
+            print(i, i.penalty)
+        elseif i.id == nodes.nodecodes.glue then
+            print(i, i.width, i.stretch, i.shrink, i.stretchorder, i.shrinkorder)
+        elseif i.id == nodes.nodecodes.hlist then
+            print(i, nodes.toutf(i.list),i.width,i.height,i.depth,i.shift,i.glue_set,i.glue_sign,i.glue_order)
+        elseif i.id == nodes.nodecodes.kern then
+            print(i, i.kern, i.expension)
+        else
+            print(i)
+        end
+    end
+end
+--]]
+
+function Thirddata.jiazhu.main(head)
+    show_detail(head,"head")
+    print(node.hasattribute(head.next.next, 2, 222))
+    return head, true
+end
+
+nodes.tasks.appendaction("processors", "after", "Thirddata.jiazhu.main")
+
+\stopluacode
+\starttext
+
+
+% \blackrule[width=0.5em]
+
+% \vbox attr 2=222 {a b c}
+\hbox attr 2=222 {a b c}
+% The result is as follows (without the <node: hlist box> I expected)：
+% >>>>>>>>>head<<<<<<<<<<
+% a b c
+% <node :    nil <=   3688 =>   3448 : glyph unset>       a
+% <node :   3688 <=   3448 =>   3702 : glue spaceskip>    261738  130869  87246   0       0
+% <node :   3448 <=   3702 =>   3484 : glyph unset>       b
+% <node :   3702 <=   3484 =>   3716 : glue spaceskip>    261738  130869  87246   0       0
+% <node :   3484 <=   3716 =>    nil : glyph unset>       c
+
+% ~\hbox{a b c}
+% Hacking with the `~`, the result is as follows (containing the <node: hlist box> I expected):
+% >>>>>>>>>head<<<<<<<<<<
+% a b c
+% <node :    nil <=   3719 =>   3377 : glyph unset>       a
+% <node :   3719 <=   3377 =>   3733 : glue spaceskip>    261738  130869  87246   0       0
+% <node :   3377 <=   3733 =>   3491 : glyph unset>       b
+% <node :   3733 <=   3491 =>   3747 : glue spaceskip>    261738  130869  87246   0       0
+% <node :   3491 <=   3747 =>    nil : glyph unset>       c
+% >>>>>>>>>head<<<<<<<<<<
+% a b c
+% <node :    nil <=   3395 =>   3484 : par vmodepar>
+% <node :   3395 <=   3484 =>   2208 : glue indentskip>   0       0       0       0       0
+% <node :   3484 <=   2208 =>   3498 : penalty userpenalty>       10000
+% <node :   2208 <=   3498 =>   3325 : glue spaceskip>    261738  130869  87246   0       0
+% <node :   3498 <=   3325 =>   3441 : hlist box> a b c   1702476 545484  8646    0       nil     nil     nil<node :   3325 <=   3441 =>    nil : glue spaceskip>    261738  130869  87246   0       0
+
+\stoptext

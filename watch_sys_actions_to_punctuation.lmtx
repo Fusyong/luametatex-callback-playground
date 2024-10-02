@@ -1,0 +1,123 @@
+\setscript[hanzi]
+\usetypescriptfile[mscore]
+\usebodyfont   [mschinese,20pt]
+
+
+\showframe
+\enabletrackers[script*] %脚本跟踪
+
+% just for watching node list
+% \startluacode
+%     local watch = require("watch_sys_actions.lua")
+%     watch.register()
+% \stopluacode
+
+\starttext
+\define\myskip{\hskip 1.5em}
+
+\subject{5.1.1 句号、逗号、顿号、分号、冒号均置于相应文字之后，占一个字位置，居左下，不出现在一行之首。}
+
+\myskip\dorecurse{50}{我。} %
+
+\myskip\dorecurse{50}{我，} %
+
+\myskip\dorecurse{50}{我、} %
+
+\myskip\dorecurse{50}{我；} %
+
+\myskip\dorecurse{50}{我：} %
+
+\subject{5.1.2 问号、叹号均置于相应文字之后，占一个字位置，居左，不出现在一行之首。两个问号（或叹号）叠用时，占一个字位置；三个问号（或叹号）叠用时，占两个字位置；问号和叹号连用时，占一个字位置。}
+
+\myskip\dorecurse{50}{我？} %
+
+\myskip\dorecurse{50}{我！} %
+
+\myskip\dorecurse{50}{我？？} % 两个连用占一字，三个连用占两字
+
+\myskip\dorecurse{50}{我！！} %
+
+\myskip\dorecurse{50}{我？？？} %
+
+\myskip\dorecurse{50}{我！！！} %
+
+\myskip\dorecurse{50}{我！？} %
+
+\myskip\dorecurse{50}{我？！！} %
+
+\subject{5.1.3 引号、括号、书名号中的两部分标在相应项目的两端，各占一个字位置。其中前一半不出现在一行之末，后一半不出现在一行之首。}
+
+\myskip\dorecurse{50}{“我”我}
+% [” (U+0201D) 'half_width_close'] [stretch break] [我 (U+06211) 'chinese']
+% [我 (U+06211) 'chinese'] [nobreak stretch break autoshrink] [“ (U+0201C) 'half_width_open']
+
+\myskip\dorecurse{50}{‘我’我} %
+
+\myskip\dorecurse{50}{（我）我} %
+
+\myskip\dorecurse{50}{［我］我} %
+
+\myskip\dorecurse{50}{〔我〕我} %
+
+\myskip\dorecurse{50}{【我】我} %
+
+\myskip\dorecurse{50}{《我》我} %
+
+\myskip\dorecurse{50}{〈我〉我} %
+
+\subject{ 5.1.4 破折号标在相应项目之间，占两个字位置，上下居中，不能中间断开分处上行之末和下行之首。}
+
+\myskip\dorecurse{15}{我——} % bb
+
+\subject{5.1.5 省略号占两个字位置，两个省略号连用时占四个字位置并须单独占一行。省略号不能中间断开分处上行之末和下行之首。}
+
+\myskip\dorecurse{15}{我……} % bb
+
+\myskip\dorecurse{1}{…………} % bb
+
+\subject{5.1.6 连接号中的短横线比汉字“一”略短，占半个字位置；一字线比汉字“一”略长，占一个字位置；浪纹线占一个字位置。连接号上下居中，不出现在一行之首。}
+
+\myskip\dorecurse{50}{1-} %
+
+\myskip\dorecurse{50}{a-} %
+
+\myskip\dorecurse{50}{我-} % 缺乏定义
+% before hanzi: U+6211:我
+% after hanzi: U+6211:我
+
+\myskip\dorecurse{25}{1—} % 缺乏定义
+% before hanzi: U+2014:—
+% after hanzi: U+2014:—
+
+\myskip\dorecurse{15}{我—} % good
+% [我 (U+06211) 'chinese'] [nobreak stretch] [— (U+02014) 'hyphen']
+% [— (U+02014) 'hyphen'] [stretch break] [我 (U+06211) 'chinese']
+
+\myskip\dorecurse{25}{1～} % 缺乏定义
+% before hanzi: U+FF5E:～
+% after hanzi: U+FF5E:～
+
+\myskip\dorecurse{15}{我～} % bad, 符号归类错误？？
+% [我 (U+06211) 'chinese'] [stretch break] [～ (U+0FF5E) 'katakana']
+% [～ (U+0FF5E) 'katakana'] [stretch break] [我 (U+06211) 'chinese']
+
+\subject{5.1.7 间隔号标在需要隔开的项目之间，占半个字位置，上下居中，不出现在一行之首。}
+
+\myskip\dorecurse{15}{我·} %
+
+\subject{5.1.8 着重号和专名号标在相应文字的下边。}
+
+\subject{5.1.9 分隔号占半个字位置，不出现在一行之首或一行之末。}
+
+\myskip\dorecurse{25}{1/} %
+
+\myskip\dorecurse{35}{a/} %
+
+\myskip\dorecurse{25}{我/} %
+
+\subject{5.1.10 标点符号排在一行末尾时，若为全角字符则应占半角字符的宽度（即半个字位置），以使视觉效果更美观。}
+
+\subject{5.1.11 在实际编辑出版工作中，为排版美观、方便阅读等需要，或为避免某一小节最后一个汉字转行或出现在另外一页开头等情况（浪费版面及视觉效果差），可适当压缩标点符号所占用的空间。}
+
+\stoptext
+

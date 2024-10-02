@@ -8,13 +8,10 @@
 * 运行`context luametatex-callback-playground.lmtx`，编译
 * 如果控制台输出汉字乱码，可用命令`chcp 65001`临时改变代码页
 * 观察控制台和pdf输出
-* play `luametatex-callback-playground.lmtx` 并编译
+* play `luametatex-callback-playground.lmtx`和`luametatex-callback-playground.lua`并编译
 * 观察并 play again, and on and on
 
-## 说明文档
+## 详细教程
 
-## 示例
-
-
-
+[ LuaTeX回调游乐场](https://blog.xiiigame.com/2022-02-23-luametatex-callback-playground/)
 
